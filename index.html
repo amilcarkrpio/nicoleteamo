@@ -33,9 +33,11 @@
 </head>
 <body>
     <iframe id="bg-music" width="0" height="0"
-        src="https://www.youtube.com/embed/IVluKJqdEfE?autoplay=1&loop=1&playlist=IVluKJqdEfE"
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/manuel-angel-mendoza-596435954/80-mi-persona-favorita-rio-roma-deerekvans&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false"
         frameborder="0" allow="autoplay">
     </iframe>
+    
+    <button id="play-music" style="display: none;">Reproducir</button>
     
     <canvas id="pinkboard"></canvas>
     <canvas id="heart-background"></canvas>
@@ -107,37 +109,14 @@
             }, 500);
         });
 
-        function startHeartBackground() {
-            const canvas = document.getElementById("heart-background");
-            const ctx = canvas.getContext("2d");
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const hearts = [];
+        window.addEventListener("load", () => {
+            document.getElementById("play-music").click();
+        });
 
-            for (let i = 0; i < 100; i++) {
-                hearts.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 5 + 2,
-                    speed: Math.random() * 1 + 0.2
-                });
-            }
-
-            function drawHearts() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = "rgba(255, 100, 150, 0.5)";
-                hearts.forEach(heart => {
-                    ctx.beginPath();
-                    ctx.arc(heart.x, heart.y, heart.size, 0, Math.PI * 2);
-                    ctx.fill();
-                    heart.y += heart.speed;
-                    if (heart.y > canvas.height) heart.y = 0;
-                });
-                requestAnimationFrame(drawHearts);
-            }
-
-            drawHearts();
-        }
+        document.getElementById("play-music").addEventListener("click", () => {
+            let iframe = document.getElementById("bg-music");
+            iframe.src += "&auto_play=true";
+        });
     </script>
 </body>
 </html>
